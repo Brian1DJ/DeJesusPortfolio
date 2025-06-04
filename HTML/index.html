@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brian De Jesus - Computer Science Student</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    colors: {
+                        'neutral-950': '#0a0a0a',
+                        'neutral-900': '#171717',
+                        'neutral-850': '#1f1f1f',
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.6s ease-out forwards',
+                        'slide-up': 'slideUp 0.8s ease-out forwards',
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-subtle': 'pulseSubtle 4s ease-in-out infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            font-family: 'Inter', system-ui, sans-serif;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-10px) rotate(1deg); }
+            66% { transform: translateY(5px) rotate(-1deg); }
+        }
+        
+        @keyframes pulseSubtle {
+            0%, 100% { opacity: 0.1; }
+            50% { opacity: 0.2; }
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #ffffff 0%, #a3a3a3 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .glass-subtle {
+            background: rgba(23, 23, 23, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(64, 64, 64, 0.3);
+        }
+        
+        .hover-lift {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-2px);
+        }
+        
+        .text-shadow {
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        
+        .border-gradient {
+            position: relative;
+            background: #171717;
+        }
+        
+        .border-gradient::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            border-radius: inherit;
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: xor;
+        }
+        
+        .typing::after {
+            content: '';
+            width: 2px;
+            height: 1.2em;
+            background: #ffffff;
+            display: inline-block;
+            animation: blink 1s infinite;
+            margin-left: 2px;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+        
+        .skill-bar {
+            width: 0%;
+            transition: width 2s ease-out 0.5s;
+        }
+        
+        .nav-blur {
+            backdrop-filter: blur(20px);
+            background: rgba(10, 10, 10, 0.8);
+            border-bottom: 1px solid rgba(64, 64, 64, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-neutral-950 text-white antialiased overflow-x-hidden">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 nav-blur">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="text-lg font-semibold">
+                    Brian De Jesus
+                </div>
+                <div class="hidden md:flex space-x-8 text-sm">
+                    <a href="#home" class="text-neutral-400 hover:text-white transition-colors duration-300">Home</a>
+                    <a href="#about" class="text-neutral-400 hover:text-white transition-colors duration-300">About</a>
+                    <a href="#projects" class="text-neutral-400 hover:text-white transition-colors duration-300">Projects</a>
+                    <a href="#contact" class="text-neutral-400 hover:text-white transition-colors duration-300">Contact</a>
+                </div>
+                <button id="mobile-menu" class="md:hidden text-neutral-400 hover:text-white">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center relative">
+        <!-- Subtle Background Elements -->
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute top-1/3 -left-32 w-96 h-96 bg-white rounded-full blur-3xl animate-pulse-subtle"></div>
+            <div class="absolute bottom-1/3 -right-32 w-96 h-96 bg-white rounded-full blur-3xl animate-pulse-subtle" style="animation-delay: 2s;"></div>
+        </div>
+        
+        <div class="text-center z-10 px-6 max-w-4xl mx-auto">
+            <div class="animate-slide-up">
+                <div class="mb-8">
+                    <span class="text-neutral-400 text-sm font-medium tracking-wide uppercase">Computer Science Student</span>
+                </div>
+                <h1 class="text-5xl md:text-7xl font-bold mb-8 leading-tight">
+                    <span class="gradient-text text-shadow">Brian De Jesus</span>
+                </h1>
+                <div class="text-xl md:text-2xl mb-12 h-8 text-neutral-300">
+                    <span id="typed-text" class="typing font-light"></span>
+                </div>
+                <p class="text-neutral-400 text-lg mb-16 max-w-2xl mx-auto leading-relaxed font-light">
+                    Passionate about creating elegant solutions through code. Currently studying Computer Science and building projects that make a difference.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <button onclick="scrollToSection('projects')" class="bg-white text-black px-8 py-3 rounded-full font-medium hover-lift hover:bg-neutral-200 transition-all duration-300">
+                        View Projects
+                    </button>
+                    <button onclick="scrollToSection('contact')" class="border border-neutral-700 px-8 py-3 rounded-full font-medium hover:border-neutral-500 transition-all duration-300">
+                        Get In Touch
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-32">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-20 items-center">
+                <div class="animate-fade-in">
+                    <h2 class="text-4xl font-bold mb-8 gradient-text">
+                        About Me
+                    </h2>
+                    <div class="space-y-6 text-neutral-300 text-lg leading-relaxed font-light">
+                        <p>
+                            I'm a Computer Science student with a passion for clean code and elegant solutions. My journey began with curiosity and has evolved into a deep appreciation for well-crafted software.
+                        </p>
+                        <p>
+                            Currently pursuing my degree while building projects that challenge me to grow. I believe in the power of simplicity and the importance of user-centered design.
+                        </p>
+                        <p>
+                            When I'm not coding, I enjoy exploring new technologies, contributing to open-source projects, and collaborating with fellow developers.
+                        </p>
+                    </div>
+                    
+                    <div class="mt-12 grid grid-cols-3 gap-8">
+                        <div class="text-center">
+                            <div class="text-2xl font-bold mb-1">15+</div>
+                            <div class="text-neutral-500 text-sm">Projects</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold mb-1">3.8</div>
+                            <div class="text-neutral-500 text-sm">GPA</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold mb-1">2025</div>
+                            <div class="text-neutral-500 text-sm">Graduate</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="animate-fade-in">
+                    <div class="border-gradient rounded-3xl p-8">
+                        <div class="space-y-8">
+                            <div>
+                                <h3 class="text-xl font-semibold mb-6">Technical Skills</h3>
+                                <div class="space-y-4">
+                                    <div>
+                                        <div class="flex justify-between mb-2">
+                                            <span class="text-neutral-300">Frontend Development</span>
+                                            <span class="text-neutral-500 text-sm">90%</span>
+                                        </div>
+                                        <div class="w-full bg-neutral-800 rounded-full h-1">
+                                            <div class="skill-bar bg-white h-1 rounded-full" data-width="90"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between mb-2">
+                                            <span class="text-neutral-300">Problem Solving</span>
+                                            <span class="text-neutral-500 text-sm">85%</span>
+                                        </div>
+                                        <div class="w-full bg-neutral-800 rounded-full h-1">
+                                            <div class="skill-bar bg-white h-1 rounded-full" data-width="85"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between mb-2">
+                                            <span class="text-neutral-300">Backend Development</span>
+                                            <span class="text-neutral-500 text-sm">80%</span>
+                                        </div>
+                                        <div class="w-full bg-neutral-800 rounded-full h-1">
+                                            <div class="skill-bar bg-white h-1 rounded-full" data-width="80"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <h4 class="text-lg font-medium mb-4">Technologies</h4>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="bg-neutral-800 text-neutral-300 px-3 py-1 rounded-full text-sm">JavaScript</span>
+                                    <span class="bg-neutral-800 text-neutral-300 px-3 py-1 rounded-full text-sm">React</span>
+                                    <span class="bg-neutral-800 text-neutral-300 px-3 py-1 rounded-full text-sm">Node.js</span>
+                                    <span class="bg-neutral-800 text-neutral-300 px-3 py-1 rounded-full text-sm">Python</span>
+                                    <span class="bg-neutral-800 text-neutral-300 px-3 py-1 rounded-full text-sm">Java</span>
+                                    <span class="bg-neutral-800 text-neutral-300 px-3 py-1 rounded-full text-sm">SQL</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-32 bg-gradient-to-b from-transparent to-neutral-900/50">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-20">
+                <h2 class="text-4xl font-bold mb-6 gradient-text">
+                    Featured Projects
+                </h2>
+                <p class="text-neutral-400 text-lg max-w-2xl mx-auto font-light">
+                    A collection of projects that showcase my journey as a developer and my commitment to clean, functional code.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Student Portal -->
+                <div class="border-gradient rounded-2xl overflow-hidden hover-lift group">
+                    <div class="h-48 bg-gradient-to-br from-neutral-800 to-neutral-900 flex items-center justify-center">
+                        <div class="text-4xl group-hover:scale-110 transition-transform duration-300">📚</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-3">Student Portal</h3>
+                        <p class="text-neutral-400 mb-4 text-sm leading-relaxed">
+                            A clean, intuitive portal for students to manage courses and track academic progress.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="bg-neutral-800 text-neutral-400 px-2 py-1 rounded text-xs">React</span>
+                            <span class="bg-neutral-800 text-neutral-400 px-2 py-1 rounded text-xs">Node.js</span>
+                            <span class="bg-neutral-800 text-neutral-400 px-2 py-1 rounded text-xs">MongoDB</span>
+                        </div>
+                        <div class="flex space-x-3">
+                            <button class="flex-1 text-white border border-neutral-700 px-4 py-2 rounded-lg text-sm hover:border-neutral-500 transition-colors">
+                                View
+                            </button>
+                            <button class="flex-1 text-neutral-400 px-4 py-2 rounded-lg text-sm hover:text-white transition-colors">
+                                Code
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Weather App -->
+                <div class="border-gradient rounded-2xl overflow-hidden hover-lift group">
+                    <div class="h-48 bg-gradient-to-br from-neutral-800 to-neutral-900 flex items-center justify-center">
+                        <div class="text-4xl group-hover:scale-110 transition-transform duration-300">🌤️</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-3">Weather Dashboard</h3>
+                        <p class="text-neutral-400 mb-4 text-sm leading-relaxed">
+                            Minimalist weather app with real-time data and clean visualizations.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="bg-neutral-800 text-neutral-400 px-2 py-1 rounded text-xs">JavaScript</span>
+                            <span class="bg-neutral-800 text-neutral-400 px-2 py-1 rounded text-xs">API</span>
+                            <span class="bg-neutral-800 text-neutral-400 px-2 py-1 rounded text-xs">Chart.js</span>
+                        </div>
+                        <div class="flex space-x-3">
+                            <button class="flex-1 text-white border border-neutral-700 px-4 py-2 rounded-lg text-sm hover:border-neutral-500 transition-colors">
+                                Demo
+                            </button>
+                            <button class="flex-1 text-neutral-400 px-4 py-2 rounded-lg text-sm hover:text-white transition-colors">
+                                GitHub
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Task Manager -->
+                <div class="border-gradient rounded-2xl overflow-hidden hover-lift group">
+                    <div class="h-48 bg-gradient-to-br from-neutral-800 to-neutral-900 flex items-center justify-center">
+                        <div class="text-4xl group-hover:scale-110 transition-transform duration-300">✓</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-3">Task Organizer</h3>
+                        <p class="text-neutral-400 mb-4 text-sm leading-relaxed">
+                            Simple, effective task management designed specifically for students.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="bg-neutral-800 text-neutral-400 px-2 py-1 rounded text-xs">React</span>
+                            <span class="bg-neutral-800 text-neutral-400 px-2 py-1 rounded text-xs">Local Storage</span>
+                            <span class="bg-neutral-800 text-neutral-400 px-2 py-1 rounded text-xs">CSS</span>
+                        </div>
+                        <div class="flex space-x-3">
+                            <button class="flex-1 text-white border border-neutral-700 px-4 py-2 rounded-lg text-sm hover:border-neutral-500 transition-colors">
+                                Try
+                            </button>
+                            <button class="flex-1 text-neutral-400 px-4 py-2 rounded-lg text-sm hover:text-white transition-colors">
+                                Source
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-32">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="text-4xl font-bold mb-8 gradient-text">
+                Let's Connect
+            </h2>
+            <p class="text-neutral-400 text-lg mb-12 font-light">
+                I'm always open to discussing new opportunities, collaborations, or just having a chat about technology.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row justify-center gap-6 mb-16">
+                <a href="mailto:brian@example.com" class="border-gradient rounded-full px-8 py-4 hover-lift flex items-center justify-center space-x-3">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                    <span>Email</span>
+                </a>
+                <a href="https://linkedin.com/in/briandejesus" class="border-gradient rounded-full px-8 py-4 hover-lift flex items-center justify-center space-x-3">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M16.338 16.338H13.67V12.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248H8.014v-8.59h2.559v1.174h.037c.356-.675 1.227-1.387 2.526-1.387 2.703 0 3.203 1.778 3.203 4.092v4.711zM5.005 6.575a1.548 1.548 0 11-.003-3.096 1.548 1.548 0 01.003 3.096zm-1.337 9.763H6.34v-8.59H3.667v8.59zM17.668 1H2.328C1.595 1 1 1.581 1 2.298v15.403C1 18.418 1.595 19 2.328 19h15.34c.734 0 1.332-.582 1.332-1.299V2.298C19 1.581 18.402 1 17.668 1z" clip-rule="evenodd"></path>
+                    </svg>
+                    <span>LinkedIn</span>
+                </a>
+                <a href="https://github.com/briandejesus" class="border-gradient rounded-full px-8 py-4 hover-lift flex items-center justify-center space-x-3">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clip-rule="evenodd"></path>
+                    </svg>
+                    <span>GitHub</span>
+                </a>
+            </div>
+            
+            <div class="text-neutral-500 text-sm">
+                © 2025 Brian De Jesus. Designed with simplicity in mind.
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Smooth scrolling
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        // Typing animation
+        const texts = ['Building the Future', 'Solving Problems', 'Learning Every Day', 'Creating Solutions'];
+        let textIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typedTextElement = document.getElementById('typed-text');
+
+        function type() {
+            const currentText = texts[textIndex];
+            
+            if (isDeleting) {
+                typedTextElement.textContent = currentText.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typedTextElement.textContent = currentText.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let typeSpeed = isDeleting ? 50 : 100;
+
+            if (!isDeleting && charIndex === currentText.length) {
+                typeSpeed = 2000;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+                typeSpeed = 500;
+            }
+
+            setTimeout(type, typeSpeed);
+        }
+
+        // Start typing animation
+        setTimeout(type, 1000);
+
+        // Animate skill bars on scroll
+        const skillBars = document.querySelectorAll('.skill-bar');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const width = entry.target.dataset.width;
+                    entry.target.style.width = width + '%';
+                }
+            });
+        });
+
+        skillBars.forEach(bar => observer.observe(bar));
+
+        // Mobile menu toggle
+        document.getElementById('mobile-menu').addEventListener('click', function() {
+            // Simple mobile menu implementation would go here
+            console.log('Mobile menu clicked');
+        });
+
+        // Add smooth scroll behavior to nav links
+        document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                scrollToSection(targetId);
+            });
+        });
+
+        // Intersection Observer for fade-in animations
+        const fadeElements = document.querySelectorAll('.animate-fade-in');
+        const fadeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        });
+
+        fadeElements.forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+            fadeObserver.observe(el);
+        });
+    </script>
+</body>
+</html>
