@@ -179,6 +179,44 @@
             </div>
         </div>
     </section>
+   <!-- Photo Reveal Section -->
+    <section id="photo-reveal" class="relative h-screen overflow-hidden">
+        <!-- Background Image - Initially Hidden -->
+        <div id="photo-bg" class="absolute inset-0 bg-cover bg-center transform scale-110 opacity-0 transition-all duration-1000 ease-out"
+             style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=600&fit=crop&crop=face'); clip-path: circle(0% at 50% 50%);">
+        </div>
+        
+        <!-- Dynamic Overlay that fades as image reveals -->
+        <div id="photo-overlay" class="absolute inset-0 bg-gradient-to-b from-neutral-950 via-neutral-900/95 to-neutral-950 transition-opacity duration-1000 ease-out"></div>
+        
+        <!-- Content that transforms as image reveals -->
+        <div class="relative z-10 h-full flex items-center justify-center">
+            <div class="text-center px-6 max-w-4xl mx-auto">
+                <div id="reveal-content" class="transform transition-all duration-1000 ease-out">
+                    
+                    <h2 id="reveal-title" class="text-4xl md:text-6xl font-bold mb-8 gradient-text leading-tight transition-all duration-1000">
+                        The Developer
+                        <br>
+                        <span class="text-neutral-400">Behind The Code</span>
+                    </h2>
+                    <p id="reveal-text" class="text-neutral-400 text-lg md:text-xl mb-12 max-w-2xl mx-auto leading-relaxed font-light transition-all duration-1000">
+                        Every great project starts with passion and dedication. Here's the face behind the code you'll see in my projects.
+                    </p>
+                    <div id="reveal-button" class="opacity-0 transition-all duration-1000 delay-500">
+                        <button onclick="scrollToSection('about')" class="group bg-white/10 backdrop-blur-sm text-white border border-white/30 px-8 py-4 rounded-full font-medium hover-lift hover:bg-white/20 hover:border-white/50 transition-all duration-300 flex items-center space-x-2 mx-auto">
+                            <span>Learn More About Me</span>
+                            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    
+        
+    </section>
 
     <!-- About Section -->
     <section id="about" class="py-32">
@@ -444,51 +482,155 @@
         // Start typing animation
         setTimeout(type, 1000);
 
-        // Animate skill bars on scroll
-        const skillBars = document.querySelectorAll('.skill-bar');
+        // Photo Reveal Effect
+        function handlePhotoReveal() {
+            const photoSection = document.getElementById('photo-reveal');
+            const photoBg = document.getElementById('photo-bg');
+            const photoOverlay = document.getElementById('photo-overlay');
+            const revealContent = document.getElementById('reveal-content');
+            const revealBadge = document.getElementById('reveal-badge');
+            const revealTitle = document.getElementById('reveal-title');
+            const revealText = document.getElementById('reveal-text');
+            const revealButton = document.getElementById('reveal-button');
+            const progressBar = document.getElementById('progress-bar');
+            
+            const rect = photoSection.getBoundingClientRect();
+            const sectionHeight = photoSection.offsetHeight;
+            const scrolled = Math.max(0, -rect.top);
+            const progress = Math.min(scrolled / sectionHeight, 1);
+            
+            // Update progress bar
+            progressBar.style.height = `${progress * 100}%`;
+            progressBar.style.transform = `translateY(${100 - (progress * 100)}%)`;
+            
+            if (progress > 0.3) {
+                // Start revealing the photo
+                const revealProgress = Math.min((progress - 0.3) / 0.4, 1);
+                const circleSize = 50 * revealProgress;
+                
+                photoBg.style.clipPath = `circle(${circleSize}% at 50% 50%)`;
+                photoBg.style.opacity = '0.9';
+                photoBg.style.transform = `scale(${1.1 - (0.1 * revealProgress)})`;
+                
+                // Fade overlay
+                photoOverlay.style.opacity = `${1 - (revealProgress * 0.7)}`;
+                
+                // Transform content
+                revealBadge.textContent = 'Meet Brian De Jesus';
+                revealTitle.innerHTML = `Hello, I'm Brian<br><span class="text-white">Computer Science Student</span>`;
+                revealText.textContent = 'Passionate about creating innovative solutions and constantly learning new technologies to build a better digital world.';
+                
+                revealContent.style.transform = `translateY(${-20 * revealProgress}px)`;
+                
+                if (revealProgress > 0.7) {
+                    revealButton.style.opacity = '1';
+                }
+            } else {
+                // Reset to initial state
+                photoBg.style.clipPath = 'circle(0% at 50% 50%)';
+                photoBg.style.opacity = '0';
+                photoBg.style.transform = 'scale(1.1)';
+                photoOverlay.style.opacity = '1';
+                
+                revealBadge.textContent = 'Keep Scrolling';
+                revealTitle.innerHTML = `The Developer<br><span class="text-neutral-400">Behind The Code</span>`;
+                revealText.textContent = 'Every great project starts with passion and dedication. Here\'s the face behind the code you\'ll see in my projects.';
+                
+                revealContent.style.transform = 'translateY(0px)';
+                revealButton.style.opacity = '0';
+            }
+        }
+
+        // Skill bar animations
+        function animateSkillBars() {
+            const skillBars = document.querySelectorAll('.skill-bar');
+            skillBars.forEach(bar => {
+                const width = bar.getAttribute('data-width');
+                bar.style.width = width + '%';
+            });
+        }
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    const width = entry.target.dataset.width;
-                    entry.target.style.width = width + '%';
+                    if (entry.target.id === 'about') {
+                        animateSkillBars();
+                    }
+                    entry.target.classList.add('animate-fade-in');
                 }
             });
-        });
-
-        skillBars.forEach(bar => observer.observe(bar));
+        }, observerOptions);
 
         // Mobile menu toggle
-        document.getElementById('mobile-menu').addEventListener('click', function() {
-            // Simple mobile menu implementation would go here
-            console.log('Mobile menu clicked');
+        const mobileMenuButton = document.getElementById('mobile-menu');
+        let mobileMenuOpen = false;
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenuOpen = !mobileMenuOpen;
+            // Add mobile menu functionality here if needed
         });
 
-        // Add smooth scroll behavior to nav links
-        document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href').substring(1);
-                scrollToSection(targetId);
+        // Scroll event listeners
+        window.addEventListener('scroll', () => {
+            handlePhotoReveal();
+            
+            // Add navbar background on scroll
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.classList.add('nav-blur');
+            } else {
+                nav.classList.remove('nav-blur');
+            }
+        });
+
+        // Initialize observers when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            // Observe sections for animations
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // Add smooth scrolling to navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Initial photo reveal check
+            handlePhotoReveal();
+        });
+
+        // Parallax effect for background elements
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallaxElements = document.querySelectorAll('.animate-float');
+            
+            parallaxElements.forEach(element => {
+                const speed = 0.5;
+                element.style.transform = `translateY(${scrolled * speed}px)`;
             });
         });
 
-        // Intersection Observer for fade-in animations
-        const fadeElements = document.querySelectorAll('.animate-fade-in');
-        const fadeObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
+        // Add loading animation
+        window.addEventListener('load', () => {
+            document.body.classList.add('loaded');
         });
 
-        fadeElements.forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
-            fadeObserver.observe(el);
-        });
-    </script>
+        </script>
 </body>
 </html>
